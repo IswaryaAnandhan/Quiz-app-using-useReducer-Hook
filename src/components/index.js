@@ -3,5 +3,6 @@ import Main from "./Main";
 import Loader from "./Loader";
 import Error from "./Error";
 import StartScreen from "./StartScreen";
+import Questions from "./Questions";
 
-export { Header,Main,Loader,Error,StartScreen };
+export { Header,Main,Loader,Error,StartScreen,Questions};

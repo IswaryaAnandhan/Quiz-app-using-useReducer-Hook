@@ -1,6 +1,6 @@
 
 import { useEffect, useReducer } from "react";
-import { Error, Header, Loader, Main } from "./components";
+import { Error, Header, Loader, Main, Questions } from "./components";
 import StartScreen from "./components/StartScreen";
 
 const initialState = {
@@ -23,7 +23,12 @@ const reducer = (state, action) => {
     case "failed": {
       return { ...state, status: "error" };
     }
-
+    case "start": {
+      return { ...state, status: "active" };
+    }
+    case "next_answer": {
+      return { ...state, answer: action.payload };
+    }
     default:
       throw new Error(`Unknown action ${action.type}`);
   }
@@ -57,6 +62,13 @@ const App = () => {
       {status === "ready" && (
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
+      {status === "active" && (
+          <Questions
+            questions={questions[index]}
+            answer={answer}
+            dispatch={dispatch}
+          />
+       )}
       </Main>
   </div>;
 };
