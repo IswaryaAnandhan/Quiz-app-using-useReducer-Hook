@@ -1,6 +1,7 @@
 
 import { useEffect, useReducer } from "react";
 import { Error, Header, Loader, Main } from "./components";
+import StartScreen from "./components/StartScreen";
 
 const initialState = {
   questions: [],
@@ -11,6 +12,8 @@ const initialState = {
   highScore: 0,
   secondsRemaining: null,
 };
+
+const numQuestions = questions.length;
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -51,6 +54,9 @@ const App = () => {
     <Main>
       {status === "loading" && <Loader />}
       {status === "error" && <Error />}
+      {status === "ready" && (
+          <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
+        )}
       </Main>
   </div>;
 };
