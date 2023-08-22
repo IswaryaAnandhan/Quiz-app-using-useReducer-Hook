@@ -1,5 +1,6 @@
 
 import { useEffect, useReducer } from "react";
+import Header from "./components/Header";
 
 const initialState = {
   questions: [],
@@ -45,7 +46,9 @@ const App = () => {
       .catch((err) => dispatch({ type: "failed" }));
   }, []);
 
-  return <div className="app">React Quiz App</div>;
+  return <div className="app">
+    <Header/>
+  </div>;
 };
 
 export default App;
