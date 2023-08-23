@@ -7,5 +7,6 @@ import Questions from "./Questions";
 import NextButton from "./NextButton";
 import Progress from "./Progress";
 import EndScreen from "./EndScreen";
+import Footer from "./Footer";
 
-export { Header,Main,Loader,Error,StartScreen,Questions,NextButton,Progress,EndScreen };
+export { Header,Main,Loader,Error,StartScreen,Questions,NextButton,Progress,EndScreen, Footer };
