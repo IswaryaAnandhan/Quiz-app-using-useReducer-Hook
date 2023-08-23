@@ -1,7 +1,15 @@
-
 import { useEffect, useReducer } from "react";
-import { Error, Header, Loader, Main, NextButton, Progress, Questions, StartScreen } from "./components";
-
+import {
+  EndScreen,
+  Error,
+  Header,
+  Loader,
+  Main,
+  NextButton,
+  Progress,
+  Questions,
+  StartScreen,
+} from "./components";
 
 const initialState = {
   questions: [],
@@ -39,6 +47,24 @@ const reducer = (state, action) => {
     case "next_question": {
       return { ...state, answer: null, index: state.index + 1 };
     }
+
+    case "finish": {
+      return {
+        ...state,
+        status: "finished",
+        highScore:
+          state.points > state.highScore ? state.points : state.highScore,
+      };
+    }
+    case "restart": {
+      return {
+        ...initialState,
+        questions: state.questions,
+        status: "ready",
+        highScore: state.highScore,
+      };
+    }
+
     default:
       throw new Error(`Unknown action ${action.type}`);
   }
@@ -67,33 +93,49 @@ const App = () => {
       .catch((err) => dispatch({ type: "failed" }));
   }, []);
 
-  return <div className="app">
-    <Header/>
-    <Main>
-      {status === "loading" && <Loader />}
-      {status === "error" && <Error />}
-      {status === "ready" && (
+  return (
+    <div className="app">
+      <Header />
+      <Main>
+        {status === "loading" && <Loader />}
+        {status === "error" && <Error />}
+        {status === "ready" && (
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
-      {status === "active" && (
+        {status === "active" && (
           <>
-               <Progress
+            <Progress
               index={index}
               numQuestions={numQuestions}
               points={points}
               maxPoints={maxPoints}
               answer={answer}
             />
-          <Questions
-            questions={questions[index]}
-            answer={answer}
+            <Questions
+              questions={questions[index]}
+              answer={answer}
+              dispatch={dispatch}
+            />
+            {answer !== null && (
+              <NextButton
+                dispatch={dispatch}
+                index={index}
+                numQuestions={numQuestions}
+              />
+            )}
+          </>
+        )}
+        {status === "finished" && (
+          <EndScreen
+            points={points}
+            maxPoints={maxPoints}
+            highScore={highScore}
             dispatch={dispatch}
           />
-          {answer !== null && <NextButton dispatch={dispatch} />}
-        </>
-       )}
+        )}
       </Main>
-  </div>;
+    </div>
+  );
 };
 
 export default App;

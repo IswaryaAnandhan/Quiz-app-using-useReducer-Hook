@@ -6,5 +6,6 @@ import StartScreen from "./StartScreen";
 import Questions from "./Questions";
 import NextButton from "./NextButton";
 import Progress from "./Progress";
+import EndScreen from "./EndScreen";
 
-export { Header,Main,Loader,Error,StartScreen,Questions,NextButton,Progress };
+export { Header,Main,Loader,Error,StartScreen,Questions,NextButton,Progress,EndScreen };
