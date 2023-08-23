@@ -8,5 +8,6 @@ import NextButton from "./NextButton";
 import Progress from "./Progress";
 import EndScreen from "./EndScreen";
 import Footer from "./Footer";
+import Timer from "./Timer";
 
-export { Header,Main,Loader,Error,StartScreen,Questions,NextButton,Progress,EndScreen, Footer };
+export { Header,Main,Loader,Error,StartScreen,Questions,NextButton,Progress,EndScreen,Footer,Timer };
