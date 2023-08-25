@@ -100,12 +100,20 @@ const App = () => {
   const numQuestions = questions.length;
   const maxPoints = questions.reduce((acc, cur) => acc + cur.points, 0);
 
+  let url;
+
+  if (process.env.REACT_APP_ENV === "production") {
+    url = "https://iswaryaanandhan.github.io/questions.json";
+  } else {
+    url = "http://localhost:5000/questions";
+  }
+
   useEffect(() => {
-    fetch("http://localhost:5000/questions")
+    fetch(url)
       .then((res) => res.json())
       .then((data) => dispatch({ type: "received_data", payload: data }))
       .catch((err) => dispatch({ type: "failed" }));
-  }, []);
+  }, [url]);
 
   return (
     <div className="app">
