@@ -6,11 +6,11 @@ Experience the React Quiz App for yourself by visiting [https://react-iq.netlify
 
 <h2><b>Features</b></h2>
 <ul>
-<li>->Multiple Choice Questions</li>
-<li>->Timer</li>
-<li>->Instant Feedback</li>
-<li>->Score Tracking</li>
-<li>->Responsive Design</li>
+<li>Multiple Choice Questions</li>
+<li>Timer</li>
+<li>Instant Feedback</li>
+<li>Score Tracking</li>
+<li>Responsive Design</li>
 </ul>
 
 
