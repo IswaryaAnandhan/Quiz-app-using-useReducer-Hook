@@ -5,11 +5,13 @@ Welcome to the React Quiz App! This web application allows users to participate 
 Experience the React Quiz App for yourself by visiting [https://react-iq.netlify.app](https://react-iq-test.netlify.app/).
 
 <h2><b>Features</b></h2>
-<ul>->Multiple Choice Questions
-->Timer
-->Instant Feedback
-->Score Tracking
-->Responsive Design</ul>
+<ul>
+<li>->Multiple Choice Questions</li>
+<li>->Timer</li>
+<li>->Instant Feedback</li>
+<li>->Score Tracking</li>
+<li>->Responsive Design</li>
+</ul>
 
 
 
