@@ -1,7 +1,8 @@
 import { useEffect, useReducer } from "react";
+
 import {
-  EndScreen,
   Error,
+  EndScreen,
   Footer,
   Header,
   Loader,
@@ -12,6 +13,7 @@ import {
   StartScreen,
   Timer,
 } from "./components";
+import axios from "axios";
 
 const SECS_PER_QUESTION = 30;
 
@@ -34,7 +36,8 @@ const reducer = (state, action) => {
       return { ...state, status: "error" };
     }
     case "start": {
-      return {  ...state,
+      return {
+        ...state,
         status: "active",
         secondsRemaining: state.questions.length * SECS_PER_QUESTION,
       };
@@ -54,7 +57,6 @@ const reducer = (state, action) => {
     case "next_question": {
       return { ...state, answer: null, index: state.index + 1 };
     }
-
     case "finish": {
       return {
         ...state,
@@ -100,19 +102,22 @@ const App = () => {
   const numQuestions = questions.length;
   const maxPoints = questions.reduce((acc, cur) => acc + cur.points, 0);
 
+ 
   let url;
 
   if (process.env.REACT_APP_ENV === "production") {
-    url = "https://iswaryaanandhan.github.io/questions.json";
+    url = "https://IswaryaAnandhan.github.io/questions.json";
   } else {
     url = "http://localhost:5000/questions";
   }
 
   useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => dispatch({ type: "received_data", payload: data }))
-      .catch((err) => dispatch({ type: "failed" }));
+    axios.get(url)
+  .then((response) => dispatch({ type: "received_data", payload: response.data }))
+  .catch((error) => {
+    console.error("Error fetching data:", error.message);
+    dispatch({ type: "failed" });
+  });
   }, [url]);
 
   return (
@@ -124,6 +129,7 @@ const App = () => {
         {status === "ready" && (
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
+
         {status === "active" && (
           <>
             <Progress
@@ -138,7 +144,7 @@ const App = () => {
               answer={answer}
               dispatch={dispatch}
             />
-           <Footer>
+            <Footer>
               {answer !== null && (
                 <NextButton
                   dispatch={dispatch}
@@ -146,10 +152,12 @@ const App = () => {
                   numQuestions={numQuestions}
                 />
               )}
+
               <Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
             </Footer>
           </>
         )}
+
         {status === "finished" && (
           <EndScreen
             points={points}
