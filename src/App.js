@@ -105,14 +105,8 @@ const App = () => {
  
   let url;
 
-  if (process.env.REACT_APP_ENV === "production") {
-    url = "https://IswaryaAnandhan.github.io/questions.json";
-  } else {
-    url = "http://localhost:5000/questions";
-  }
-
   useEffect(() => {
-    axios.get(url)
+    axios.get("https://IswaryaAnandhan.github.io/questions.json")
   .then((response) => dispatch({ type: "received_data", payload: response.data }))
   .catch((error) => {
     console.error("Error fetching data:", error.message);
